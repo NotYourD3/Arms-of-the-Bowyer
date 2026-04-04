@@ -313,12 +313,15 @@ public class QuiverModOverlayRenderer extends Gui {
                                     itemRenderer.zLevel = 50;
                                     GL11.glEnable(GL11.GL_DEPTH_TEST);
                                     GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+
+                                    GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
                                     itemRenderer.renderItemAndEffectIntoGUI(
                                         fontRenderer,
                                         renderEngine,
                                         arrowStack,
                                         stackPosX,
                                         iconPosY);
+                                    GL11.glPopAttrib();
 
                                     GL11.glPopMatrix();
 
@@ -330,7 +333,7 @@ public class QuiverModOverlayRenderer extends Gui {
                                 renderEngine.bindTexture(HOTBAR_TEX);
 
                                 drawTexturedModalRect(x, y, texOffset, 19, 19, 19);
-
+                                GL11.glPushMatrix();
                                 if (hasArrowStack) {
                                     itemRenderer.renderItemOverlayIntoGUI(
                                         fontRenderer,
@@ -339,6 +342,7 @@ public class QuiverModOverlayRenderer extends Gui {
                                         stackPosX,
                                         stackPosY);
                                 }
+                                GL11.glPopMatrix();
 
                                 GL11.glDisable(GL11.GL_LIGHTING);
                                 GL11.glColor4f(1, 1, 1, 1);

@@ -12,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 
@@ -318,24 +319,18 @@ public class WeirdRenderBowThing implements IItemRenderer {
             if (wholeBow) {
                 try {
                     fullBright = Math.abs(fullBright);
-
-                    lightmapX = OpenGlHelper.lastBrightnessX;
-                    lightmapY = OpenGlHelper.lastBrightnessY;
-
-                    float fullBrightX = fullBright;
-                    float fullBrightY = 0;
-
-                    if (fullBrightY < lightmapY) {
-                        fullBrightY = lightmapY;
-
-                        if (fullBrightX < lightmapX) {
-                            fullBrightX = lightmapX;
-                        }
-                    }
-
-                    OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, fullBrightX, fullBrightY);
+                    int light = mc.theWorld.getLightBrightnessForSkyBlocks(
+                        MathHelper.floor_double(player.posX),
+                        MathHelper.floor_double(player.posY),
+                        MathHelper.floor_double(player.posZ),
+                        0);
+                    int j = light % 65536;
+                    int k = light / 65536;
+                    OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j, k);
                 } catch (NoSuchFieldError e) {
                     optifineBroken = true;
+                    lightmapX = 240; // 添加
+                    lightmapY = 240; // 添加
                 }
             }
 

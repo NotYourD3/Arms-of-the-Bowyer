@@ -43,5 +43,5 @@ lib
 bin
 .gradle
 .idea
-rung
+run
 /build/
