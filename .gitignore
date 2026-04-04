@@ -36,3 +36,12 @@ saves/Dick/level.dat_old
 saves/Dick/session.lock
 
 usernamecache.json
+
+build
+gradle
+lib
+bin
+.gradle
+.idea
+rung
+/build/

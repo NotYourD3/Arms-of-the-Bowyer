@@ -1,0 +1,8 @@
+// Add any additional repositories for your dependencies here.
+
+repositories {
+    //cursemaven
+    maven {
+        url = uri("https://cursemaven.com")
+    }
+}
