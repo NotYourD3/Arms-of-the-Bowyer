@@ -180,7 +180,7 @@ public class QuiverBow extends ItemBow {
         ItemStack quiverStack = null;
         ItemStack arrowStack = null;
         int reps = 0;
-        int tops = 1;
+        int tops = 0;
         if (arrowSlots != null) {
             InventorySlot quiverSlot = arrowSlots.get("quiver");
             quiverStack = quiverSlot.stack;
@@ -320,7 +320,7 @@ public class QuiverBow extends ItemBow {
                     if (quiverStack != null) {
                         Quiver.removeArrow(player, quiverStack, quiverIndex, arrowIndex);
                     } else {
-                        arrowStack.stackSize--;
+                        //arrowStack.stackSize--;
 
                         if (arrowStack.stackSize < 1) player.inventory.setInventorySlotContents(arrowIndex, null);
                     }
