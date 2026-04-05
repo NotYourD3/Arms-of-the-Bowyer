@@ -26,6 +26,8 @@ import com.Jackiecrazi.bar.client.Tex2DRender3D;
 import com.Jackiecrazi.bar.helpful.BowArrowIcons;
 import com.Jackiecrazi.bar.helpful.ColorThing;
 
+
+
 public class WeirdRenderBowThing implements IItemRenderer {
 
     private static final ResourceLocation ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
@@ -54,6 +56,9 @@ public class WeirdRenderBowThing implements IItemRenderer {
     }
 
     private void drawItem(IIcon icon, float thickness) {
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
+
         float xStart = icon.getMinU();
         float xEnd = icon.getMaxU();
         float yStart = icon.getMinV();
@@ -62,6 +67,8 @@ public class WeirdRenderBowThing implements IItemRenderer {
         int width = icon.getIconWidth();
 
         ItemRenderer.renderItemIn2D(tessellator, xEnd, yStart, xStart, yEnd, width, height, thickness);
+
+
     }
 
     private void prepareEnchantment() {
@@ -165,6 +172,8 @@ public class WeirdRenderBowThing implements IItemRenderer {
         Item item = bowStack.getItem();
 
         if (type.equals(ItemRenderType.INVENTORY)) {
+
+            resetOpenGLState();
             GL11.glDisable(GL11.GL_LIGHTING);
 
             for (int pass = 0; pass < 2; ++pass) {
@@ -235,6 +244,7 @@ public class WeirdRenderBowThing implements IItemRenderer {
                 unprepareEnchantment();
             }
         } else if (type.equals(ItemRenderType.EQUIPPED) || type.equals(ItemRenderType.EQUIPPED_FIRST_PERSON)) {
+
             Entity entity = (Entity) data[1];
 
             QuiverBow bow = (QuiverBow) item;
@@ -358,6 +368,7 @@ public class WeirdRenderBowThing implements IItemRenderer {
             icon = bow.getBowIconForPlayer(iconOffset);
             drawItem(icon, 0.09375F);
 
+
             boolean arrowHasEffect = false;
 
             if (wholeBow) {
@@ -405,7 +416,7 @@ public class WeirdRenderBowThing implements IItemRenderer {
                                 case 0:
                                 case 1:
                                     int color = arrowStack.getItem()
-                                        .getColorFromItemStack(arrowStack, pass);
+                                            .getColorFromItemStack(arrowStack, pass);
                                     ColorThing.glSetColor(color);
 
                                     if (isFullBright) GL11.glDisable(GL11.GL_LIGHTING);
@@ -427,11 +438,11 @@ public class WeirdRenderBowThing implements IItemRenderer {
                     // end arrow
                 }
             }
-
             boolean bowEnch = bowStack.isItemEnchanted();
             boolean ench = bowEnch || arrowHasEffect;
 
             if (ench) {
+
                 prepareEnchantment();
             }
 
@@ -469,5 +480,35 @@ public class WeirdRenderBowThing implements IItemRenderer {
 
             GL11.glPopMatrix();
         }
+    }
+
+    private void resetOpenGLState() {
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+
+        OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+        // 重置混合模式
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+        // 重置光照
+        GL11.glEnable(GL11.GL_LIGHTING);
+
+        // 重置深度测试
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glDepthFunc(GL11.GL_LEQUAL);
+
+        // 重置面剔除
+        GL11.glEnable(GL11.GL_CULL_FACE);
+
+        // 重置纹理矩阵
+        GL11.glMatrixMode(GL11.GL_TEXTURE);
+        GL11.glLoadIdentity();
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+
+
+        // 重置纹理绑定
+        mc.renderEngine.bindTexture(TextureMap.locationItemsTexture);
     }
 }
