@@ -181,7 +181,7 @@ public class WeirdRenderBowThing implements IItemRenderer {
 
                 if (icon != null) {
                     int color = item.getColorFromItemStack(bowStack, pass);
-                    ColorThing.glSetColor(color);
+                    //ColorThing.glSetColor(color);
                     renderItem.renderIcon(0, 0, icon, 16, 16);
                 }
 
@@ -196,7 +196,6 @@ public class WeirdRenderBowThing implements IItemRenderer {
 
                     GL11.glColor4f(0.5F, 0.25F, 0.8F, 1.0F);
                     mc.renderEngine.bindTexture(ITEM_GLINT);
-
                     renderGlint(-2, -2, 20, 20);
 
                     mc.renderEngine.bindTexture(TextureMap.locationItemsTexture);
@@ -207,6 +206,7 @@ public class WeirdRenderBowThing implements IItemRenderer {
                     GL11.glEnable(GL11.GL_LIGHTING);
                     GL11.glDepthFunc(GL11.GL_LEQUAL);
 
+                    resetOpenGLState();
                     GL11.glPopMatrix();
                 }
             }
