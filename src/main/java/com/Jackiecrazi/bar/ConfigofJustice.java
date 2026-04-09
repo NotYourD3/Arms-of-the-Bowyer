@@ -3,6 +3,7 @@ package com.Jackiecrazi.bar;
 import java.io.File;
 import java.util.HashMap;
 
+import com.notyourd3.bar.BowData;
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,6 +16,7 @@ public class ConfigofJustice {
     /* General */
     public static boolean useChunkLoader = true;
     public static boolean baublesIntegration = true;
+    public static String[] bowDataRaw;
     public static int slowMoSetting = 0;
     public static boolean offsetArrows = true;
     public static boolean allowSkeletonGriefing = false;
@@ -81,6 +83,13 @@ public class ConfigofJustice {
                 "Mod Compatibility",
                 true,
                 "Enable Baubles Integration(finger tab, thumb ring)");
+            bowDataRaw = c.getStringList("bowSettings","General"
+                    ,new String[]{"minecraft:bow|1.0|1.0|1.0|1.0",
+                            "BetterArcheryReborn:yumi|1.15|1.45|1.5|1",
+                            "BetterArcheryReborn:recurve|0.9|1.35|1.25|1.1",
+                            "BetterArcheryReborn:longbow|1.5|1.5|1.75|1.75",
+                            "BetterArcheryReborn:composite|0.5|1.25|0.65|0.8"}
+                    ,"abc");
         } catch (Exception er) {
             LogManager.getLogger("BAR")
                 .fatal("You have done something pretty hard (easy) to do. Here's an error.");

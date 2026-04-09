@@ -160,6 +160,7 @@ public class QuiverBow extends ItemBow {
         return new ItemStack(ModItems.DerpArrow);
     }
 
+    @Deprecated
     public void onPlayerStoppedUsing(ItemStack item, World world, EntityPlayer player, int duration) {
         float j = this.getMaxItemUseDuration(item) - duration;
 

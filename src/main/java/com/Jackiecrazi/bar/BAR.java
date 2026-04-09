@@ -1,5 +1,6 @@
 package com.Jackiecrazi.bar;
 
+import com.notyourd3.bar.BowDataManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -72,6 +73,7 @@ public class BAR {
     @EventHandler
     public void preinit(FMLPreInitializationEvent event) {
         ConfigofJustice.CreatioExNihilo(event.getSuggestedConfigurationFile());
+        BowDataManager.getInstance().putBowData(ConfigofJustice.bowDataRaw);
         net = NetworkRegistry.INSTANCE.newSimpleChannel("BARnet");
         this.proxy.preInit(event);
         FMLCommonHandler.instance()

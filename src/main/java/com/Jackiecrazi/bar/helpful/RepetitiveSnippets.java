@@ -297,12 +297,13 @@ public class RepetitiveSnippets {
                 ObjectArrays.concat(player.inventory.mainInventory, player.inventory.armorInventory, ItemStack.class),
                 baubles,
                 ItemStack.class);
-            System.out.println("both length is " + both.length);
+            //WTF???
+            //System.out.println("both length is " + both.length);
             for (ItemStack arrow : both) {
                 if (arrow != null && BAR.isArrow(arrow)) {
                     out = new InventorySlots();
                     out.set("arrow", new InventorySlot(arrow, i));
-                    System.out.println();
+                    /*System.out.println();
                     System.out.println();
                     System.out.println();
                     System.out.println("found arrow slot at " + i);
@@ -310,6 +311,8 @@ public class RepetitiveSnippets {
                     System.out.println();
                     System.out.println();
                     System.out.println();
+
+                     */
                     break;
                 }
 
